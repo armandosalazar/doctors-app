@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp"
-    android:gravity="center"
     tools:context=".LoginActivity">
 
     <TextView
@@ -14,31 +14,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Doctors App"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="30sp" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/inputEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Correo"
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/inputPassword"
         android:layout_width="match_parent"
+        android:hint="Contraseña"
         android:layout_height="wrap_content"
         android:inputType="textPassword" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/saveSession"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Guardar sesion" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="Iniciar sesion" />
+        android:text="Iniciar sesion"
+        android:textAllCaps="false" />
 
 </LinearLayout>

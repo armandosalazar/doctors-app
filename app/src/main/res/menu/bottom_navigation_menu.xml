@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_fluent_home"
+        android:title="Inicio" />
+    <item
+        android:id="@+id/datesFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_fluent_calendar"
+        android:title="Citas" />
+</menu>
