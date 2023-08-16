@@ -68,6 +68,8 @@ public class LoginActivity extends AppCompatActivity {
             if (data[1].equals(inputEmail.getText().toString().trim()) && data[2].equals(inputPassword.getText().toString().trim())) {
                 Toast.makeText(this, "Sesion Iniciada", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            } else {
+                Toast.makeText(this, "Verifique sus credenciales", Toast.LENGTH_SHORT).show();
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -73,8 +73,31 @@ public class HomeFragment extends Fragment {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        try {
+            getDates();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         // Inflate the layout for this fragment
         return view;
+    }
+
+    public String[] getDates() throws IOException {
+        File fileEvents = new File(getActivity().getFilesDir().toString().concat("/text/dates"));
+        StringBuilder text = new StringBuilder();
+        BufferedReader br = new BufferedReader(new FileReader(fileEvents));
+        String line;
+        while ((line = br.readLine()) != null) {
+            text.append(line);
+        }
+        br.close();
+        System.out.println("[[".concat(text.toString()).concat("]]"));
+        String data[] = text.toString().split(":");
+        for (String value : data) {
+            System.out.println(value);
+        }
+        System.out.println(getActivity().getFilesDir());
+        return data;
     }
 
     public String[] getData() throws IOException {

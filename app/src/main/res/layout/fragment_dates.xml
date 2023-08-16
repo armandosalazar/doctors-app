@@ -17,28 +17,29 @@
         android:textSize="30sp" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/names"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nombres"
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/lastnames"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Apellidos"
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editTextPhone"
+        android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Teléfono"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:maxLength="10" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/symptoms"
         android:layout_width="match_parent"
         android:layout_height="158dp"
         android:ems="10"
@@ -48,10 +49,10 @@
 
 
     <Switch
-        android:id="@+id/switch1"
-        android:fontFamily="@font/ubuntu_regular"
+        android:id="@+id/urgency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_regular"
         android:text="Urgente" />
 
     <RadioGroup
@@ -59,15 +60,23 @@
         android:layout_height="wrap_content">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/man"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="Hombre" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/woman"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Mujer" />
     </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar"
+        android:textAllCaps="false" />
 </LinearLayout>
