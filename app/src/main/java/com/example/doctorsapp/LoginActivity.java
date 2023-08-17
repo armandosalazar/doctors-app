@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,21 +15,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
+    private static final String TAG = LoginActivity.class.getSimpleName();
     private EditText inputEmail, inputPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        findViewById(R.id.buttonLogin).setOnClickListener(v -> login());
 
-        File file = new File(LoginActivity.this.getFilesDir(), "text");
-        if (!file.exists()) {
-            file.mkdir();
-        }
         try {
-            File f = new File(file, "sample");
-            FileWriter writer = new FileWriter(f);
+            File file = new File(getFilesDir(), "users.txt");
+            FileWriter writer = new FileWriter(file);
             writer.append("Armando Salazar:armando@email.com:12345");
             writer.flush();
             writer.close();
@@ -36,37 +33,47 @@ public class LoginActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
+        findViewById(R.id.buttonLogin).setOnClickListener(v -> login());
+
+
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
     }
 
     public String[] getData() throws IOException {
-        File fileEvents = new File(LoginActivity.this.getFilesDir().toString().concat("/text/sample"));
+        File file = new File(getFilesDir(), "users.txt");
+
         StringBuilder text = new StringBuilder();
-        BufferedReader br = new BufferedReader(new FileReader(fileEvents));
+
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+
         String line;
-        while ((line = br.readLine()) != null) {
+
+        while ((line = bufferedReader.readLine()) != null) {
             text.append(line);
         }
-        br.close();
-        System.out.println("[[".concat(text.toString()).concat("]]"));
-        String data[] = text.toString().split(":");
+
+        bufferedReader.close();
+
+        String[] data = text.toString().split(":");
+
         for (String value : data) {
             System.out.println(value);
+            Log.e(TAG, value);
         }
-        System.out.println(LoginActivity.this.getFilesDir());
+
         return data;
     }
 
     private void login() {
         try {
-            String data[] = getData();
+            String[] data = getData();
             for (String value :
                     data) {
                 System.out.println(value);
             }
             if (data[1].equals(inputEmail.getText().toString().trim()) && data[2].equals(inputPassword.getText().toString().trim())) {
-                Toast.makeText(this, "Sesion Iniciada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Sesión Iniciada", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
             } else {
                 Toast.makeText(this, "Verifique sus credenciales", Toast.LENGTH_SHORT).show();

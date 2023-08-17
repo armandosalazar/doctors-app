@@ -2,15 +2,18 @@ package com.example.doctorsapp.models;
 
 public class Date {
     private String names;
-    private String lastnames;
+    private String lastNames;
     private String phone;
     private String symptoms;
     private boolean urgent;
     private String sex;
 
-    public Date(String names, String lastnames, String phone, String symptoms, boolean urgent, String sex) {
+    public Date() {
+    }
+
+    public Date(String names, String lastNames, String phone, String symptoms, boolean urgent, String sex) {
         this.names = names;
-        this.lastnames = lastnames;
+        this.lastNames = lastNames;
         this.phone = phone;
         this.symptoms = symptoms;
         this.urgent = urgent;
@@ -25,12 +28,12 @@ public class Date {
         this.names = names;
     }
 
-    public String getLastnames() {
-        return lastnames;
+    public String getLastNames() {
+        return lastNames;
     }
 
-    public void setLastnames(String lastnames) {
-        this.lastnames = lastnames;
+    public void setLastNames(String lastNames) {
+        this.lastNames = lastNames;
     }
 
     public String getPhone() {

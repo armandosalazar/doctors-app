@@ -3,8 +3,5 @@
     <font
         android:font="@font/ubuntu_regular"
         android:fontStyle="normal" />
-    <font
-        android:font="@font/ubuntu_bold"
-        android:fontStyle="italic" />
 
 </font-family>

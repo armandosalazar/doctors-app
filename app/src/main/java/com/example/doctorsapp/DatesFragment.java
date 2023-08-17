@@ -1,6 +1,5 @@
 package com.example.doctorsapp;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -104,14 +103,11 @@ public class DatesFragment extends Fragment {
 
         } else {
             Date date = new Date(names.getText().toString(), lastnames.getText().toString(), phone.getText().toString(), symptoms.getText().toString(), urgency.isChecked(), sex);
-            File file = new File(getActivity().getFilesDir(), "text");
-            if (!file.exists()) {
-                file.mkdir();
-            }
             try {
-                File f = new File(file, "dates");
-                FileWriter writer = new FileWriter(f, true);
-                writer.append(date.getNames().concat(":").concat(date.getLastnames()).concat(":").concat(date.getPhone().concat(":").concat(date.getSymptoms().concat(":").concat(date.getSex()).concat("\n"))));
+
+                File file = new File(requireContext().getFilesDir(), "dates.txt");
+                FileWriter writer = new FileWriter(file, true);
+                writer.append(date.getNames().concat(":").concat(date.getLastNames()).concat(":").concat(date.getPhone().concat(":").concat(date.getSymptoms().concat(":").concat(date.getSex()).concat("\n"))));
                 writer.flush();
                 writer.close();
                 getData();
@@ -120,10 +116,15 @@ public class DatesFragment extends Fragment {
                 throw new RuntimeException(e);
             }
         }
+
+        names.setText("");
+        lastnames.setText("");
+        phone.setText("");
+        symptoms.setText("");
     }
 
     public String[] getData() throws IOException {
-        File fileEvents = new File(getActivity().getFilesDir().toString().concat("/text/dates"));
+        File fileEvents = new File(requireContext().getFilesDir(), "dates.txt");
         StringBuilder text = new StringBuilder();
         BufferedReader br = new BufferedReader(new FileReader(fileEvents));
         String line;
@@ -132,7 +133,7 @@ public class DatesFragment extends Fragment {
         }
         br.close();
         System.out.println("[[".concat(text.toString()).concat("]]"));
-        String data[] = text.toString().split(":");
+        String data[] = text.toString().split("\n");
         for (String value : data) {
             System.out.println(value);
         }

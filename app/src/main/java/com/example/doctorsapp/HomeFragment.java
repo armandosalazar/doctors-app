@@ -3,16 +3,23 @@ package com.example.doctorsapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.doctorsapp.models.Date;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,57 +71,82 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
         TextView userName = view.findViewById(R.id.userName);
         TextView userEmail = view.findViewById(R.id.userEmail);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_dates);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
         try {
-            String data[] = getData();
+            String[] data = getUserData();
+
             userName.setText(data[0]);
             userEmail.setText(data[1]);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         try {
-            getDates();
+            List<Date> dates = getDates();
+            for (Date date : dates) {
+                System.out.println(date);
+            }
+            DatesAdapter datesAdapter = new DatesAdapter(dates);
+            recyclerView.setAdapter(datesAdapter);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         // Inflate the layout for this fragment
         return view;
     }
 
-    public String[] getDates() throws IOException {
-        File fileEvents = new File(getActivity().getFilesDir().toString().concat("/text/dates"));
-        StringBuilder text = new StringBuilder();
-        BufferedReader br = new BufferedReader(new FileReader(fileEvents));
+    public List<Date> getDates() throws IOException {
+        File file = new File(requireContext().getFilesDir(), "dates.txt");
+        List<Date> dates = new ArrayList<>();
+
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+
         String line;
-        while ((line = br.readLine()) != null) {
-            text.append(line);
+        while ((line = bufferedReader.readLine()) != null) {
+            String[] data = line.split(":");
+            Date date = new Date();
+            date.setNames(data[0]);
+            date.setLastNames(data[1]);
+            date.setPhone(data[2]);
+            date.setSymptoms(data[3]);
+            date.setSex(data[4]);
+            dates.add(date);
         }
-        br.close();
-        System.out.println("[[".concat(text.toString()).concat("]]"));
-        String data[] = text.toString().split(":");
-        for (String value : data) {
-            System.out.println(value);
-        }
-        System.out.println(getActivity().getFilesDir());
-        return data;
+        bufferedReader.close();
+
+        return dates;
+
     }
 
-    public String[] getData() throws IOException {
-        File fileEvents = new File(getActivity().getFilesDir().toString().concat("/text/sample"));
+    public String[] getUserData() throws IOException {
+        File file = new File(requireContext().getFilesDir(), "users.txt");
+
         StringBuilder text = new StringBuilder();
-        BufferedReader br = new BufferedReader(new FileReader(fileEvents));
+
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+
         String line;
-        while ((line = br.readLine()) != null) {
+        while ((line = bufferedReader.readLine()) != null) {
             text.append(line);
         }
-        br.close();
+
+        bufferedReader.close();
+
         System.out.println("[[".concat(text.toString()).concat("]]"));
-        String data[] = text.toString().split(":");
+
+        String[] data = text.toString().split(":");
+
         for (String value : data) {
             System.out.println(value);
         }
-        System.out.println(getActivity().getFilesDir());
+        System.out.println(requireContext().getFilesDir());
         return data;
     }
 }
