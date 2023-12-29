@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doctorsapp.models.Date;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.ViewHolder> {
@@ -31,7 +30,7 @@ public class DatesAdapter extends RecyclerView.Adapter<DatesAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Date date = dates.get(position);
-        holder.textViewName.setText(date.getNames() + " " + date.getLastNames());
+        holder.textViewName.setText(String.format("%s %s", date.getNames(), date.getLastNames()));
         holder.textViewSex.setText(date.getSex());
         holder.textViewPhone.setText(date.getPhone());
         holder.textViewSymptoms.setText(date.getSymptoms());
