@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -24,11 +25,16 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         try {
+            // TODO: create file dates.txt empty
+            FileWriter writerDates = new FileWriter(new File(getFilesDir(), "dates.txt"));
+            writerDates.flush();
+            writerDates.close();
+
             File file = new File(getFilesDir(), "users.txt");
-            FileWriter writer = new FileWriter(file);
-            writer.append("Armando Salazar:armando@email.com:12345");
-            writer.flush();
-            writer.close();
+            FileWriter writerUsers = new FileWriter(file);
+            writerUsers.append("Armando Salazar:armando@email.com:12345");
+            writerUsers.flush();
+            writerUsers.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
